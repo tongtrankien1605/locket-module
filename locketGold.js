@@ -1,18 +1,15 @@
-// locketGold.js
-
-const mapping = {
-  'Locket': ['Gold']
-};
-
-let ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
 let response = JSON.parse($response.body);
 
-// Thêm thông báo
-response.Attention = "Chúc mừng bạn! Vui lòng không bán hoặc chia sẻ cho người khác!";
+// Logic để kiểm tra User-Agent và áp dụng mapping
+const mapping = {
+  'Locket': ['Gold']  // Có thể thêm các User-Agent khác tại đây
+};
 
-// Logic kích hoạt Gold dựa trên User-Agent
-const match = Object.keys(mapping).find(key => ua.includes(key));
+var ua = $request.headers["User-Agent"] || $request.headers["user-agent"];
+const match = Object.keys(mapping).find(e => ua.includes(e));
+
 if (match) {
+  // Cập nhật quyền Gold nếu có match
   response.subscriber = {
     original_app_user_id: "locket_user_12345",
     subscriptions: {
@@ -35,9 +32,6 @@ if (match) {
       },
     },
   };
-} else {
-  // Nếu không khớp User-Agent, giữ nguyên phản hồi gốc
-  response.subscriber = response.subscriber || {};
 }
 
 $done({ body: JSON.stringify(response) });
