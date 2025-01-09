@@ -7,5 +7,7 @@
 # Chỉnh sửa phản hồi RevenueCat
 locketGold = type=http-response, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/tongtrankien1605/locket-module/main/locketGold.js, requires-body=true, timeout=60
 
+deleteHeader = type=http-request, pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers), script-path=https://raw.githubusercontent.com/tongtrankien1605/locket-module/main/deleteHeader.js, timeout=60
+
 [MITM]
 hostname = %APPEND% api.revenuecat.com
